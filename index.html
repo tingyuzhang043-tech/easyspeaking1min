@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>EasySpeaking1Min · 一分钟即兴演讲训练</title>
+<meta name="description" content="Random IELTS Part 2 cue card + 60 second timer. 随机抽题，一分钟即兴演讲训练。" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div class="aurora" aria-hidden="true">
+  <span class="blob b1"></span>
+  <span class="blob b2"></span>
+  <span class="blob b3"></span>
+  <div class="grid-lines"></div>
+</div>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark">60</div>
+    <div class="brand-text">
+      <strong>EasySpeaking<span>1Min</span></strong>
+      <em>one minute · no script</em>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <div class="stat-pill" id="statPill" title="练习记录">
+      <span class="dot"></span>
+      <span id="statText">0 sessions</span>
+    </div>
+    <button class="icon-btn" id="btnSettings" aria-label="设置">⚙</button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ HOME ============ -->
+  <section class="view is-active" id="viewHome">
+    <div class="hero">
+      <p class="kicker">IELTS SPEAKING · PART 2 DRILL</p>
+      <h1>Speak for <span class="grad">60 seconds</span>.<br />No script. No pause.</h1>
+      <p class="sub">随机抽一个雅思口语话题卡，倒计时 60 秒，开口就说。</p>
+    </div>
+
+    <div class="filters" id="filters" role="tablist" aria-label="话题分类"></div>
+
+    <div class="slot-machine">
+      <div class="slot-card" id="slotCard" data-state="empty">
+        <div class="slot-empty">
+          <div class="slot-q">? ? ?</div>
+          <p>按下按钮，抽一张话题卡</p>
+        </div>
+
+        <div class="slot-result">
+          <div class="slot-top">
+            <span class="cat-badge" id="slotCat">OBJECTS</span>
+            <span class="slot-idx" id="slotIdx"></span>
+          </div>
+          <h2 class="slot-topic" id="slotTopic">Describe a gift you received</h2>
+          <p class="slot-cn" id="slotCn">描述你收到的一份礼物</p>
+          <div class="cues" id="slotCues"></div>
+        </div>
+
+        <div class="slot-rolling">
+          <div class="roll-text" id="rollText">Describe a gift</div>
+        </div>
+      </div>
+
+      <div class="slot-actions">
+        <button class="btn btn-ghost" id="btnReroll" disabled>↻ 换一个</button>
+        <button class="btn btn-primary btn-xl" id="btnDraw">
+          <span class="btn-ico">◈</span> 抽取话题
+        </button>
+        <button class="btn btn-go" id="btnStart" disabled>开始 60 秒 ▶</button>
+      </div>
+    </div>
+
+    <div class="streak-bar" id="streakBar"></div>
+  </section>
+
+  <!-- ============ STAGE ============ -->
+  <section class="view" id="viewStage">
+    <div class="stage-head">
+      <button class="icon-btn" id="btnQuit" aria-label="放弃">✕</button>
+      <div class="stage-topic">
+        <span class="cat-badge" id="stageCat">OBJECTS</span>
+        <p id="stageTopic">Describe a gift you received</p>
+      </div>
+      <div class="rec-chip" id="recChip" hidden><span class="rec-dot"></span>REC</div>
+    </div>
+
+    <div class="timer-wrap">
+      <svg class="ring" viewBox="0 0 240 240" aria-hidden="true">
+        <circle class="ring-bg" cx="120" cy="120" r="106" />
+        <circle class="ring-fg" id="ringFg" cx="120" cy="120" r="106" />
+      </svg>
+      <div class="timer-core">
+        <p class="phase-tag" id="phaseTag">PREP</p>
+        <p class="timer-num" id="timerNum">15</p>
+        <p class="timer-hint" id="timerHint">想好你要说什么</p>
+      </div>
+    </div>
+
+    <div class="stage-body">
+      <div class="cue-panel">
+        <p class="panel-title">CUE POINTS<span>可以顺着说的线索</span></p>
+        <ul id="stageCues"></ul>
+      </div>
+      <div class="twist-panel" id="twistPanel">
+        <p class="panel-title">TWIST LOG<span>本轮触发的意外</span></p>
+        <ul id="twistLog"><li class="twist-log-empty">等待中…</li></ul>
+      </div>
+    </div>
+
+    <div class="stage-foot">
+      <button class="btn btn-ghost" id="btnSkipPrep">跳过准备 →</button>
+      <button class="btn btn-danger-ghost" id="btnAbort">结束本轮</button>
+    </div>
+  </section>
+
+  <!-- ============ RESULT ============ -->
+  <section class="view" id="viewResult">
+    <div class="result-card">
+      <div class="result-badge" id="resultBadge">TIME!</div>
+      <h2 class="result-title" id="resultTitle">60 秒，说完了</h2>
+      <p class="result-sub" id="resultSub">Describe a gift you received</p>
+
+      <div class="result-metrics">
+        <div class="metric"><span id="mSpoke">60</span><em>spoken sec</em></div>
+        <div class="metric"><span id="mTwist">0</span><em>twists</em></div>
+        <div class="metric"><span id="mTotal">0</span><em>total runs</em></div>
+      </div>
+
+      <div class="recorder" id="recorderBox" hidden>
+        <p class="panel-title">YOUR TAKE<span>录音回放（仅本地保存）</span></p>
+        <audio id="audioPlayback" controls></audio>
+        <a class="btn btn-ghost btn-sm" id="btnDownload" download="easyspeaking1min.webm">⤓ 下载录音</a>
+      </div>
+
+      <div class="share-box">
+        <p class="panel-title">SHARE TEXT<span>复制即可发小红书 / 抖音</span></p>
+        <textarea id="shareText" readonly rows="4"></textarea>
+        <button class="btn btn-primary btn-sm" id="btnCopyShare">⧉ 复制文案</button>
+      </div>
+
+      <div class="result-actions">
+        <button class="btn btn-go" id="btnAgain">同一话题再来 ▸</button>
+        <button class="btn btn-ghost" id="btnNew">换一个话题 ↻</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ TWIST OVERLAY ============ -->
+<div class="twist-overlay" id="twistOverlay" aria-live="assertive">
+  <div class="twist-card">
+    <div class="twist-ico" id="twistIco">💣</div>
+    <p class="twist-kind" id="twistKind">WORD BOMB</p>
+    <p class="twist-head" id="twistHead">Use this word NOW</p>
+    <p class="twist-desc" id="twistDesc">serendipity</p>
+  </div>
+</div>
+
+<!-- ============ SETTINGS ============ -->
+<div class="modal" id="settingsModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3>Settings</h3>
+      <button class="icon-btn" id="btnCloseSettings" aria-label="关闭">✕</button>
+    </div>
+
+    <div class="set-row">
+      <div class="set-label">Prep time<em>开口前的思考时间</em></div>
+      <div class="seg" id="segPrep">
+        <button data-v="0">0s</button>
+        <button data-v="15" class="on">15s</button>
+        <button data-v="30">30s</button>
+        <button data-v="60">60s</button>
+      </div>
+    </div>
+
+    <div class="set-row">
+      <div class="set-label">Speak time<em>正式演讲时长</em></div>
+      <div class="seg" id="segSpeak">
+        <button data-v="30">30s</button>
+        <button data-v="60" class="on">60s</button>
+        <button data-v="90">90s</button>
+      </div>
+    </div>
+
+    <div class="set-row">
+      <div class="set-label">TWIST 意外事件<em>随机打断你的舒适区</em></div>
+      <button class="switch on" id="swTwist" role="switch" aria-checked="true"><span></span></button>
+    </div>
+
+    <div class="set-row">
+      <div class="set-label">Twist 强度<em>一轮里触发几次</em></div>
+      <div class="seg" id="segIntensity">
+        <button data-v="1">轻</button>
+        <button data-v="2" class="on">中</button>
+        <button data-v="3">猛</button>
+      </div>
+    </div>
+
+    <div class="set-row">
+      <div class="set-label">录音<em>结束后可回放复盘</em></div>
+      <button class="switch" id="swRec" role="switch" aria-checked="false"><span></span></button>
+    </div>
+
+    <div class="set-row">
+      <div class="set-label">音效<em>滴答 / 提示 / 结束铃</em></div>
+      <button class="switch on" id="swSound" role="switch" aria-checked="true"><span></span></button>
+    </div>
+
+    <div class="set-row">
+      <div class="set-label">界面语言<em>多语种人设占位</em></div>
+      <div class="seg" id="segLang">
+        <button data-v="en" class="on">EN</button>
+        <button data-v="zh">中</button>
+        <button data-v="jp" disabled>JP</button>
+        <button data-v="fr" disabled>FR</button>
+      </div>
+    </div>
+
+    <p class="set-foot">设置自动保存在本机浏览器 · 录音不会上传</p>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/topics.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
