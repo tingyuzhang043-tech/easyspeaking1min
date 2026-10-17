@@ -4,6 +4,8 @@
 
 > 抽一张话题卡 → 60 秒开口不停 → 中途被「意外」打断 → 结束拿到回放与分享文案。
 
+🔗 **在线体验：** https://tingyuzhang043-tech.github.io/easyspeaking1min/
+
 ## 功能
 
 **1. 话题抽取**
@@ -44,7 +46,9 @@
 
 ## 使用
 
-直接打开 `index.html` 即可，或起一个本地服务：
+**在线直接用：** https://tingyuzhang043-tech.github.io/easyspeaking1min/
+
+**本地跑：** 纯静态零依赖，直接双击 `index.html` 就能打开。需要麦克风录音时建议起个本地服务（浏览器的安全策略要求 HTTPS 或 localhost）：
 
 ```bash
 python -m http.server 5173
@@ -53,7 +57,25 @@ python -m http.server 5173
 
 快捷键：`空格 / Enter` 抽题或开始，`Esc` 退出当前轮次。
 
-部署到 GitHub Pages：push 到 `main`，Settings → Pages → 选 `main` 根目录，纯静态无需构建。
+## 部署
+
+纯静态站点，走 GitHub Pages 的**分支发布**模式，无构建、无依赖、无需 Node。
+
+**首次开启**：Settings → Pages → Source 选 `Deploy from a branch` → Branch `main` / Folder `/ (root)` → Save。
+
+> ⚠️ 首次配置后构建要 1–2 分钟，期间访问会出现 *"There isn't a GitHub Pages site here."*，这是正常排队，等一会再刷新即可。
+
+> ⚠️ 不要额外添加 Actions 部署工作流（`deploy-pages` 之类）。它会和分支发布同时抢占同一个 Pages 环境，造成重复部署甚至互相覆盖。两种模式二选一，本项目选分支模式。
+
+**后续更新**：
+
+```bash
+git add .
+git commit -m "描述改动"
+git push origin main
+```
+
+推送后 30 秒~1 分钟自动上线。
 
 ## 结构
 
@@ -62,6 +84,7 @@ index.html        三个视图：首页 / 倒计时 / 结算
 css/style.css     暗色视觉系统
 js/topics.js      话题库 + TWIST 池（想加题直接改这里）
 js/app.js         抽题、计时、意外事件、录音、统计
+.gitignore        忽略 .workbuddy/ 等本地工作数据
 ```
 
 ## 加话题
@@ -77,3 +100,14 @@ js/app.js         抽题、计时、意外事件、录音、统计
 ```
 
 想加新的意外事件，往 `TWISTS` 里加，支持 `delta` 字段（正数为加时，负数为扣时）。
+
+## 自媒体用法
+
+- 暗色高对比界面，OBS 窗口捕获或投屏直录即可，没有多余 UI 干扰。
+- 建议用 OBS 同时录制「窗口画面 + 麦克风」，演讲画面和人声一次成型。
+- 结算页的分享文案自带 `Day N`、话题、Twist 战绩和标签，复制后可直接发。
+- 多语种人设：界面语言位已预留 EN / 中 / JP / FR，补充对应语种的话题库即可扩展。
+
+## 隐私
+
+录音仅在本地浏览器内存与下载文件中处理，**不上传任何服务器**；练习记录存 localStorage。
