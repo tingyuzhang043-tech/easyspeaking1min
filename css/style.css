@@ -123,6 +123,23 @@ main{position:relative;z-index:4;max-width:1180px;margin:0 auto;padding:0 26px 8
 }
 .chip .n{font-size:11px;opacity:.6}
 
+/* 自定义话题输入 */
+.custom-topic{
+  display:flex;gap:10px;justify-content:center;align-items:center;
+  max-width:620px;margin:-14px auto 26px;padding:0 16px;
+}
+.custom-topic input{
+  flex:1;min-width:0;padding:11px 15px;border-radius:12px;font-size:14px;
+  border:1px solid var(--line);background:var(--glass);color:var(--ink);
+  outline:none;transition:.2s;
+}
+.custom-topic input::placeholder{color:var(--muted);opacity:.75}
+.custom-topic input:focus{
+  border-color:rgba(124,92,255,.55);
+  box-shadow:0 0 0 3px rgba(124,92,255,.14);
+}
+.custom-topic .btn{padding:11px 18px;font-size:13px;white-space:nowrap}
+
 /* ---------- slot machine ---------- */
 .slot-machine{max-width:760px;margin:0 auto}
 .slot-card{

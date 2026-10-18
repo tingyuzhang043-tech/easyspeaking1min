@@ -186,11 +186,33 @@
 
   function paintTopic(t) {
     const cat = CATEGORIES.find((c) => c.id === t.c) || { label: 'TOPIC' };
+    const idx = TOPICS.indexOf(t);
     $('#slotCat').textContent = cat.label;
-    $('#slotIdx').textContent = `#${String(TOPICS.indexOf(t) + 1).padStart(2, '0')} / ${TOPICS.length}`;
+    $('#slotIdx').textContent = idx >= 0
+      ? `#${String(idx + 1).padStart(2, '0')} / ${TOPICS.length}`
+      : 'CUSTOM · 自定义话题';
     $('#slotTopic').textContent = t.en;
     $('#slotCn').textContent = t.cn;
     $('#slotCues').innerHTML = cueHtml(t);
+  }
+
+  /* ---------------- 自定义话题 ---------------- */
+  function useCustomTopic() {
+    const raw = ($('#customInput').value || '').trim();
+    if (!raw) { toast('先写点什么再开讲'); return; }
+    const t = {
+      c: 'viral',
+      en: raw,
+      cn: '自定义话题',
+      cues: ['what it is · 先说清是什么', 'your reaction · 你的第一反应',
+             'why it spreads · 为什么传得开', 'your verdict · 你怎么评价']
+    };
+    currentTopic = t;
+    paintTopic(t);
+    $('#slotCard').dataset.state = 'result';
+    $('#btnReroll').disabled = true;   // 自定义题不参与换一个
+    $('#btnStart').disabled = false;
+    Sfx.go();
   }
 
   /* ---------------- 统计展示 ---------------- */
@@ -335,7 +357,10 @@
     for (let i = 0; i < count; i++) run.twistPoints.push(from + seg * i + Math.random() * seg * 0.85);
     run.twistPoints.sort((a, b) => a - b);
 
-    const bag = TWISTS.slice().sort(() => Math.random() - 0.5);
+    // 强度 1 只出语言类；强度 2/3 才解锁身体挑战类（避免开局就崩）
+    const allowBody = settings.intensity >= 2;
+    const src = TWISTS.filter((t) => !t.body || allowBody);
+    const bag = src.slice().sort(() => Math.random() - 0.5);
     run.twistQueue = bag.slice(0, run.twistPoints.length);
   }
 
@@ -356,7 +381,7 @@
     $('#twistHead').textContent = t.head;
     const d = $('#twistDesc');
     d.textContent = desc;
-    d.classList.toggle('big', t.id === 'word' || t.id === 'emotion');
+    d.classList.toggle('big', !!(t.big || t.id === 'word' || t.id === 'emotion'));
 
     const ov = $('#twistOverlay');
     ov.classList.remove('out');
@@ -372,6 +397,9 @@
       if (t.delta > 0) run.totalMs += t.delta * 1000;
       if (run.endAt - performance.now() < 0) run.endAt = performance.now();
       $('#timerHint').textContent = t.delta > 0 ? '+15s bonus!' : '-10s stolen!';
+    }
+    if (t.body) {
+      $('#timerHint').textContent = 'MOVE! 动起来 · 别停';
     }
 
     const log = $('#twistLog');
@@ -482,6 +510,12 @@
 
   /* ---------------- 事件绑定 ---------------- */
   function bind() {
+    $('#btnUseCustom').onclick = useCustomTopic;
+    $('#customInput').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') { e.preventDefault(); useCustomTopic(); }
+    });
+
+
     $('#btnDraw').onclick = () => { Sfx.ensure(); drawTopic(); };
     $('#btnReroll').onclick = () => drawTopic();
     $('#btnStart').onclick = () => beginRun();

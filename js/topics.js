@@ -13,7 +13,8 @@ const CATEGORIES = [
   { id: 'events',  label: 'EVENTS',   cn: '事件',   ico: '🎉' },
   { id: 'hobbies', label: 'HOBBIES',  cn: '爱好',   ico: '🎯' },
   { id: 'media',   label: 'MEDIA',    cn: '媒体',   ico: '📱' },
-  { id: 'nature',  label: 'FOOD & NATURE', cn: '食物自然', ico: '🍜' }
+  { id: 'nature',  label: 'FOOD & NATURE', cn: '食物自然', ico: '🍜' },
+  { id: 'viral',   label: 'SURFING', cn: '冲浪60秒', ico: '🏄' }
 ];
 
 const TOPICS = [
@@ -195,7 +196,44 @@ const TOPICS = [
   { c:'nature', en:'Describe a street food you tried', cn:'描述你吃过的一种街头小吃',
     cues:['what it was · 是什么','where you found it · 在哪吃到的','the taste · 味道如何','would you try again · 还会吃吗'] },
   { c:'nature', en:'Describe a time you tried something new to eat', cn:'描述你尝试新食物的一次经历',
-    cues:['what it was · 是什么','who you were with · 和谁一起','the taste · 味道如何','your reaction · 你的反应'] }
+    cues:['what it was · 是什么','who you were with · 和谁一起','the taste · 味道如何','your reaction · 你的反应'] },
+
+  /* ---------------- VIRAL · 冲浪60秒（网感话题） ---------------- */
+  /* A. 黑话翻译：把中文互联网讲给世界听，这类最显双语功底 */
+  { c:'viral', en:'Explain "内卷" (involution) to a foreigner', cn:'向外国人解释「内卷」',
+    cues:['one-line definition · 一句话定义','a real example · 举个真实例子','how it feels · 身处其中什么感受','good or bad · 好还是坏'] },
+  { c:'viral', en:'How would you translate "发疯文学" into English?', cn:'「发疯文学」用英语怎么说？',
+    cues:['literal or not · 直译还是意译','an example line · 造个句','when people use it · 什么时候用','why it is funny · 为什么好笑'] },
+  { c:'viral', en:'Explain "电子榨菜" (digital pickles) to a friend abroad', cn:'给国外朋友解释「电子榨菜」',
+    cues:['what it means · 什么意思','your own version · 你的电子榨菜','why we need it · 为什么需要','is it healthy · 这健康吗'] },
+  { c:'viral', en:'Explain "社恐" — it is not just being shy', cn:'解释「社恐」——不只是害羞',
+    cues:['what it really means · 到底什么意思','a situation · 举个例子','shy vs 社恐 · 有什么不同','do you relate · 你中了几条'] },
+
+  /* B. 网络现象：有观点空间，能显思考深度 */
+  { c:'viral', en:'Why do you think short videos are so addictive?', cn:'为什么短视频这么让人上瘾？',
+    cues:['the mechanism · 机制是什么','your own habit · 你自己呢','good or bad · 好还是坏','how to control it · 怎么控制'] },
+  { c:'viral', en:'Why do internet catchphrases spread so fast?', cn:'为什么网络流行语传得这么快？',
+    cues:['an example · 举个例子','who starts them · 谁造的梗','why people repeat · 为什么大家跟着说','how long they last · 能活多久'] },
+  { c:'viral', en:'Why do people love watching others eat on camera?', cn:'为什么大家爱看别人吃饭？',
+    cues:['the appeal · 吸引力在哪','a creator you like · 你喜欢的主播','the loneliness factor · 孤独感作祟？','is it weird · 这奇怪吗'] },
+  { c:'viral', en:'Why do reality shows feel so dramatic?', cn:'为什么真人秀这么抓马？',
+    cues:['a famous moment · 一个名场面','real or scripted · 真还是演','why we watch · 我们为什么看','your guilty pleasure · 你的真香现场'] },
+  { c:'viral', en:'Why do strangers online argue so easily?', cn:'为什么网上陌生人那么容易吵起来？',
+    cues:['an example · 举个例子','the screen effect · 屏幕效应','have you done it · 你吵过吗','what to do · 该怎么办'] },
+
+  /* C. 万能热点题：题目固定，内容填当天热搜 —— 这类永不过时 */
+  { c:'viral', en:'Why did this suddenly blow up online?', cn:'这个东西为什么突然火了？',
+    cues:['describe it first · 先说清是什么','when you noticed · 你什么时候注意到的','why it clicked · 为什么戳中人','will it last · 能火多久'] },
+  { c:'viral', en:'Defend the unpopular side of a trending topic', cn:'为一个热点话题里的少数派辩护',
+    cues:['what the topic is · 话题是什么','the popular view · 多数人怎么看','your angle · 你的角度','steelman it · 把对方论证说强'] },
+  { c:'viral', en:'Explain a piece of internet slang to someone from 1995', cn:'向一个1995年的人解释一个网络用语',
+    cues:['the word · 哪个词','the scene · 什么场景用','translate it · 怎么翻','why it is funny · 笑点在哪'] },
+
+  /* D. 学外语向：既网感又涨精准粉 */
+  { c:'viral', en:'Do you think AI will replace language learning?', cn:'AI 会取代语言学习吗？',
+    cues:['what AI is good at · AI 擅长什么','what it cannot do · 做不到什么','your experience · 你的体验','five years from now · 五年后'] },
+  { c:'viral', en:'What is the hardest thing about speaking a foreign language?', cn:'说外语最难的是什么？',
+    cues:['your answer · 你的答案','a time you froze · 你卡壳的一次','how you fixed it · 怎么解决的','advice to beginners · 给新手的建议'] }
 ];
 
 /* ===========================================================
@@ -223,6 +261,12 @@ const TWIST_EMOTIONS = [
 const TWIST_SENSES = [
   'a smell · 一种气味', 'a sound · 一种声音',
   'a texture · 一种触感', 'a colour · 一种颜色'
+];
+
+/* RU 混入词：英语句子里硬塞俄语，制造「语言失控」的喜剧效果 */
+const TWIST_RU = [
+  'нет · 不', 'да · 对', 'хорошо · 好', 'спасибо · 谢谢',
+  'давай · 来吧', 'нормально · 还行', 'конечно · 当然', 'точно · 没错'
 ];
 
 const TWISTS = [
@@ -273,6 +317,42 @@ const TWISTS = [
   {
     id: 'stage', ico: '🎤', kind: 'BIG STAGE', head: '500 people are watching',
     desc: () => '放大音量，放开说 · project your voice'
+  },
+
+  /* ---- 语言失控类 ---- */
+  {
+    id: 'ruslish', ico: '🇷🇺', kind: 'RUSLISH CHAOS', head: 'Sneak in Russian words',
+    desc: () => '每句塞一个俄语词 · ' + pick(TWIST_RU), big: true
+  },
+  {
+    id: 'anchor', ico: '📺', kind: 'NEWS ANCHOR', head: 'Breaking news voice',
+    desc: () => '新闻播报腔 · sound dead serious'
+  },
+  {
+    id: 'question', ico: '❓', kind: 'ALL QUESTIONS', head: 'Only questions now',
+    desc: () => '接下来全用问句 · everything is a question'
+  },
+  {
+    id: 'superlative', ico: '🏆', kind: 'SUPERLATIVE ONLY', head: 'The most, the best, the worst',
+    desc: () => '只能用最高级 · -est / the most only'
+  },
+
+  /* ---- 身体挑战类（出片王炸，需真人出镜） ---- */
+  {
+    id: 'flamingo', ico: '🦩', kind: 'FLAMINGO MODE', head: 'Stand on one leg',
+    desc: () => '金鸡独立，不许放下 · one leg, hold it!', body: true, big: true
+  },
+  {
+    id: 'pushup', ico: '💪', kind: 'PUSH-UP TALK', head: 'Push-ups while speaking',
+    desc: () => '边做俯卧撑边说 · drop and talk', body: true, big: true
+  },
+  {
+    id: 'squat', ico: '🏋️', kind: 'SQUAT STORM', head: 'Squat and keep talking',
+    desc: () => '边深蹲边说 · keep squatting', body: true, big: true
+  },
+  {
+    id: 'plank', ico: '🧱', kind: 'PLANK TALK', head: 'Hold a plank',
+    desc: () => '平板撑住别塌 · hold that plank', body: true, big: true
   }
 ];
 

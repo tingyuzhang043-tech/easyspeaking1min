@@ -45,6 +45,13 @@
 
     <div class="filters" id="filters" role="tablist" aria-label="话题分类"></div>
 
+    <!-- 自定义话题：看到什么新梗 / 热点，直接贴进来就能开讲 -->
+    <div class="custom-topic">
+      <input type="text" id="customInput" maxlength="90"
+             placeholder="有想说的？直接把今天的梗 / 热点贴进来…" aria-label="自定义话题" />
+      <button class="btn btn-ghost" id="btnUseCustom">用它 ▶</button>
+    </div>
+
     <div class="slot-machine">
       <div class="slot-card" id="slotCard" data-state="empty">
         <div class="slot-empty">
