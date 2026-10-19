@@ -14,7 +14,8 @@ const CATEGORIES = [
   { id: 'hobbies', label: 'HOBBIES',  cn: '爱好',   ico: '🎯' },
   { id: 'media',   label: 'MEDIA',    cn: '媒体',   ico: '📱' },
   { id: 'nature',  label: 'FOOD & NATURE', cn: '食物自然', ico: '🍜' },
-  { id: 'viral',   label: 'SURFING', cn: '冲浪60秒', ico: '🏄' }
+  { id: 'viral',   label: 'SURFING', cn: '冲浪60秒', ico: '🏄' },
+  { id: 'exam',    label: 'EXAM', cn: '交卷60秒', ico: '📝' }
 ];
 
 const TOPICS = [
@@ -233,7 +234,50 @@ const TOPICS = [
   { c:'viral', en:'Do you think AI will replace language learning?', cn:'AI 会取代语言学习吗？',
     cues:['what AI is good at · AI 擅长什么','what it cannot do · 做不到什么','your experience · 你的体验','five years from now · 五年后'] },
   { c:'viral', en:'What is the hardest thing about speaking a foreign language?', cn:'说外语最难的是什么？',
-    cues:['your answer · 你的答案','a time you froze · 你卡壳的一次','how you fixed it · 怎么解决的','advice to beginners · 给新手的建议'] }
+    cues:['your answer · 你的答案','a time you froze · 你卡壳的一次','how you fixed it · 怎么解决的','advice to beginners · 给新手的建议'] },
+
+  /* ---------------- EXAM · 交卷60秒（真题档） ---------------- */
+  /* A. 高考作文 · 用英语答 —— 中国人都写过的题，反差最大 */
+  { c:'exam', en:'Gaokao essay: "Answers and Questions" — will we have fewer questions?', cn:'高考作文·答案与问题（2024 新课标I卷）',
+    cues:['your position · 你的立场','one real example · 一个真实例子','the opposite view · 反过来想','land it · 收尾一句话'] },
+  { c:'exam', en:'Gaokao essay: "The Power of a Good Story"', cn:'高考作文·故事的力量（2023 新课标I卷）',
+    cues:['a story that moved you · 一个打动你的故事','why it worked · 它为什么有用','story or fact · 故事和事实谁强','your ending line · 收尾'] },
+  { c:'exam', en:'Gaokao essay: "Qin Fang" — to borrow, to adapt, or to create?', cn:'高考作文·红楼梦「沁芳」（2022 全国甲卷）',
+    cues:['translate the words · 先试着翻这几个词','which way is best · 哪种最好','a time you copied · 你借鉴过的一次','when originality matters · 什么时候必须原创'] },
+  { c:'exam', en:'Gaokao essay: "Ben Shou, Miao Shou, Su Shou" — the basics vs the brilliant move', cn:'高考作文·本手妙手俗手（2022 新高考I卷）',
+    cues:['explain the terms · 先把三个词说清','a brilliant move · 一个妙手','without the basics · 没有本手会怎样','which you are · 你是哪一个'] },
+  { c:'exam', en:'Gaokao essay: Two or three keywords that explain China to a foreigner', cn:'高考作文·用两三个关键词向外国朋友介绍中国（2017 全国I卷）',
+    cues:['your keywords · 你选哪几个','why these · 为什么是它们','one for each · 每个讲一句','what you left out · 你故意没选什么'] },
+  { c:'exam', en:'Gaokao essay: Write to the 18-year-old you in 2035', cn:'高考作文·写给2035年18岁的那个人（2018 全国I卷）',
+    cues:['what you would tell them · 你想说什么','what you hope changed · 希望什么变了','what you fear stayed · 怕什么没变','sign off · 落款一句话'] },
+
+  /* B. 四六级 · 那些年背过的句型，经典题型 */
+  { c:'exam', en:'CET classic: "On the Importance of Speaking Ability"', cn:'四六级经典题·论口语能力的重要性',
+    cues:['why it matters · 为什么重要','why we are bad at it · 我们为什么差','one fix · 一个解决办法','your honest ending · 老实收尾'] },
+  { c:'exam', en:'CET classic: "Are people becoming addicted to technology?"', cn:'四六级经典题·人们是否对技术上瘾了？',
+    cues:['yes or no · 先给立场','your own screen time · 你自己的数据','where it crosses the line · 过界的那一刻','what to do · 怎么办'] },
+  { c:'exam', en:'CET classic: "The impact of short videos on students"', cn:'四六级经典题·短视频对学生的影响',
+    cues:['the good part · 好的一面','the bad part · 坏的一面','a real case · 一个真实例子','your verdict · 你的结论'] },
+  { c:'exam', en:'CET classic: "On the Importance of Lifelong Learning"', cn:'四六级经典题·论终身学习的重要性',
+    cues:['what changed · 什么变了','a skill you learned late · 你晚学的技能','why school was not enough · 为什么学校不够','start with what · 从什么开始'] },
+
+  /* C. 考研图画作文 —— 先描述图，再议论，天然适合口语 */
+  { c:'exam', en:'Kaoyan picture essay: "The Cultural Hot Pot"', cn:'考研图画作文·文化火锅（文化融合）',
+    cues:['describe the picture · 先描述画面','what it stands for · 象征什么','is mixing good · 混着好还是坏','one worry · 一个隐忧'] },
+  { c:'exam', en:'Kaoyan picture essay: "The Elderly Care Football Match"', cn:'考研图画作文·养老「足球赛」（四子女踢老人）',
+    cues:['describe the picture · 先描述画面','who is to blame · 谁的问题','is it still true · 现在还这样吗','one concrete fix · 一个具体办法'] },
+  { c:'exam', en:'Kaoyan picture essay: "The Finish Line Is a New Start"', cn:'考研图画作文·终点又是新起点',
+    cues:['describe the picture · 先描述画面','a finish line of yours · 你的一个终点','why we stop too early · 为什么有人停在这','what is next · 下一步'] },
+
+  /* D. 应用文 / 书信 / 面试 —— 有明确对象，最容易说满 */
+  { c:'exam', en:'Letter to a foreign pen pal: introduce one Chinese festival', cn:'英语书信·给外国笔友介绍一个中国节日',
+    cues:['which festival · 选哪个','what actually happens · 到底干嘛','the food · 吃什么','why it matters · 意义在哪'] },
+  { c:'exam', en:'Letter to your principal: one rule the school should change', cn:'英语书信·给校长写一封建议信',
+    cues:['the rule · 哪条规矩','why it is wrong · 为什么不合理','what to do instead · 改成什么','polite closing · 礼貌收尾'] },
+  { c:'exam', en:'60-second self-introduction for an interview', cn:'面试·60秒自我介绍',
+    cues:['who you are · 你是谁','one proof · 一个能证明的事','why you are here · 为什么来这','one line they remember · 让人记住的一句'] },
+  { c:'exam', en:'A thank-you letter to someone who helped you', cn:'英语书信·给帮助过你的人写一封感谢信',
+    cues:['who and when · 谁、什么时候','what they did · 他做了什么','why it mattered · 为什么重要','your closing line · 收尾一句'] }
 ];
 
 /* ===========================================================
@@ -353,6 +397,20 @@ const TWISTS = [
   {
     id: 'plank', ico: '🧱', kind: 'PLANK TALK', head: 'Hold a plank',
     desc: () => '平板撑住别塌 · hold that plank', body: true, big: true
+  },
+
+  /* ---- 应试表达类：专治「模板腔」，配真题档使用效果翻倍 ---- */
+  {
+    id: 'notemplate', ico: '🚫', kind: 'NO TEMPLATE', head: 'No crutch phrases allowed',
+    desc: () => '禁用应试模板句 · 不许说 with the development of...', big: true
+  },
+  {
+    id: 'examiner', ico: '🧑‍🏫', kind: 'EXAMINER MODE', head: 'Grade yourself out loud',
+    desc: () => '边说边给自己挑错 · 像阅卷老师那样', big: true
+  },
+  {
+    id: 'basicvocab', ico: '🔤', kind: 'GRADE-8 VOCAB', head: 'Only middle-school words',
+    desc: () => '只能用初中词汇 · 越简单越见功夫'
   }
 ];
 
