@@ -14,6 +14,7 @@ const CATEGORIES = [
   { id: 'hobbies', label: 'HOBBIES',  cn: '爱好',   ico: '🎯' },
   { id: 'media',   label: 'MEDIA',    cn: '媒体',   ico: '📱' },
   { id: 'nature',  label: 'FOOD & NATURE', cn: '食物自然', ico: '🍜' },
+  { id: 'relations', label: 'BONDS', cn: '人际关系', ico: '🤝' },
   { id: 'viral',   label: 'SURFING', cn: '冲浪60秒', ico: '🏄' },
   { id: 'exam',    label: 'EXAM', cn: '交卷60秒', ico: '📝' }
 ];
@@ -198,6 +199,20 @@ const TOPICS = [
     cues:['what it was · 是什么','where you found it · 在哪吃到的','the taste · 味道如何','would you try again · 还会吃吗'] },
   { c:'nature', en:'Describe a time you tried something new to eat', cn:'描述你尝试新食物的一次经历',
     cues:['what it was · 是什么','who you were with · 和谁一起','the taste · 味道如何','your reaction · 你的反应'] },
+
+  /* ---------------- RELATIONS · 人际关系（BONDS 60秒） ---------------- */
+  /* 关系洞察题：每题都是一句人人心里有过的台词，
+     开口先讲故事再落观点，天然带「这说的就是我」的弹幕感 */
+  { c:'relations', en:"Someone else's win is not my loss", cn:'他人之得，非我所失',
+    cues:['a friend who got ahead first · 一个先跑起来的朋友','the moment you felt sour · 你心里发酸的那一刻','why it is not a loss · 为什么那不是你的损失','what you told them · 你对他们说的那句话'] },
+  { c:'relations', en:'A true friend dares to say no to you', cn:'真朋友敢对你说「不」',
+    cues:['a time a friend refused you · 朋友拒绝你的一次','why it stung then · 当时为什么刺痛','why it was right · 为什么其实是对的','what it taught you · 它教会你什么'] },
+  { c:'relations', en:'Instant replies are not a duty', cn:'秒回不是义务',
+    cues:['someone who expects instant replies · 期待你秒回的人','how it wears you out · 它怎么消耗你','your own reply rule · 你的回复原则','does care need speed · 在意需要速度吗'] },
+  { c:'relations', en:'Stop explaining yourself to the wrong people', cn:'别向不懂你的人解释自己',
+    cues:['who you kept explaining to · 你一直在向谁解释','the moment you stopped · 停下来的那一刻','what you did instead · 之后你做了什么','the peace it brought · 它带来的平静'] },
+  { c:'relations', en:'Grown-up friendship survives on low frequency', cn:'成年人的友情，靠低频维系',
+    cues:['a friend you rarely meet · 一个很少见面的朋友','how you stay in touch · 你们怎么保持联系','one moment it proved real · 哪一刻证明是真交情','why less is more · 为什么少反而久'] },
 
   /* ---------------- VIRAL · 冲浪60秒（网感话题） ---------------- */
   /* A. 黑话翻译：把中文互联网讲给世界听，这类最显双语功底 */

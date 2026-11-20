@@ -11,6 +11,7 @@
   const RING_C = 2 * Math.PI * 106;
   const KEY_SET = 'es1m.settings';
   const KEY_STATS = 'es1m.stats';
+  const KEY_PIN = 'es1m.pin';
 
   /* ---------------- 界面文案 ---------------- */
   const T = {
@@ -102,6 +103,7 @@
   let currentCat = 'all';
   let currentTopic = null;
   let lastTopicEn = '';
+  let pinned = null;   // 锁定的话题：锁定后抽取 100% 必中（录视频用来「抽中」指定题）
 
   const run = {
     phase: 'idle',   // idle | prep | speak
@@ -150,8 +152,14 @@
   function drawTopic() {
     const list = pool();
     if (!list.length) return;
-    let t = list[Math.floor(Math.random() * list.length)];
-    if (list.length > 1 && t.en === lastTopicEn) t = list[Math.floor(Math.random() * list.length)];
+    let t;
+    if (pinned) {
+      // 锁定模式：转盘照样滚，但结果 100% 是锁定的那道题
+      t = pinned;
+    } else {
+      t = list[Math.floor(Math.random() * list.length)];
+      if (list.length > 1 && t.en === lastTopicEn) t = list[Math.floor(Math.random() * list.length)];
+    }
     lastTopicEn = t.en;
 
     const card = $('#slotCard');
@@ -194,6 +202,21 @@
     $('#slotTopic').textContent = t.en;
     $('#slotCn').textContent = t.cn;
     $('#slotCues').innerHTML = cueHtml(t);
+    updatePinBtn();
+  }
+
+  /* ---------------- 锁定话题（抽取必中） ---------------- */
+  function loadPin() {
+    try { return JSON.parse(localStorage.getItem(KEY_PIN) || 'null'); }
+    catch (e) { return null; }
+  }
+  function savePin() {
+    try { localStorage.setItem(KEY_PIN, JSON.stringify(pinned)); } catch (e) { /* 忽略隐私模式 */ }
+  }
+  function updatePinBtn() {
+    const b = $('#btnPin');
+    if (!b) return;
+    b.classList.toggle('on', !!(pinned && currentTopic && pinned.en === currentTopic.en));
   }
 
   /* ---------------- 自定义话题 ---------------- */
@@ -520,6 +543,19 @@
     $('#btnReroll').onclick = () => drawTopic();
     $('#btnStart').onclick = () => beginRun();
 
+    $('#btnPin').onclick = () => {
+      if (!currentTopic) { toast('先抽一道题再锁'); return; }
+      if (pinned && pinned.en === currentTopic.en) {
+        pinned = null;
+        toast('已解锁，恢复正常随机抽题');
+      } else {
+        pinned = currentTopic;
+        toast('已锁定：抽取 100% 中这道题');
+      }
+      savePin();
+      updatePinBtn();
+    };
+
     $('#btnSkipPrep').onclick = () => {
       cancelAnimationFrame(run.raf);
       startPhase('speak', settings.speak);
@@ -587,9 +623,11 @@
 
   /* ---------------- 初始化 ---------------- */
   function init() {
+    pinned = loadPin();
     renderFilters();
     renderStats();
     resetSlot();
+    updatePinBtn();
 
     setSeg('#segPrep', settings.prep);
     setSeg('#segSpeak', settings.speak);

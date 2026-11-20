@@ -193,6 +193,15 @@ main{position:relative;z-index:4;max-width:1180px;margin:0 auto;padding:0 26px 8
 
 .slot-actions{display:flex;gap:12px;justify-content:center;margin-top:22px;flex-wrap:wrap}
 
+/* 锁定此题（抽取必中）— 低调小图钉 */
+.slot-top-right{display:flex;align-items:center;gap:8px}
+.pin-btn{
+  font-size:14px;line-height:1;padding:2px;
+  opacity:.28;filter:grayscale(1);transition:.2s;
+}
+.pin-btn:hover{opacity:.6}
+.pin-btn.on{opacity:.95;filter:none;transform:rotate(-14deg)}
+
 /* ---------- buttons ---------- */
 .btn{
   border-radius:12px;font-size:14px;font-weight:600;
